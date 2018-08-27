@@ -10,4 +10,6 @@
     </string-array>
 
     <string name="empty_list">There are no articles available right now</string>
+    <string name="toast_no_connection">No internet connection</string>
+    <string name="toast_no_data">No data to display</string>
 </resources>

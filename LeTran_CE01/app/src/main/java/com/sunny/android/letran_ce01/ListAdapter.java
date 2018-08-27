@@ -72,7 +72,7 @@ public class ListAdapter extends BaseAdapter {
 		if (article != null) {
 			vh.txt_Title.setText(article.getTitle());
 			vh.txt_Author.setText(article.getAuthor());
-			vh.txt_Comments.setText(String.format(Locale.US, "%n", article.getNumOfComments()));
+			vh.txt_Comments.setText(article.getNumOfComments().toString());
 		}
 
 		return convertView;
