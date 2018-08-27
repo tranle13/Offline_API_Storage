@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">LeTran_CE01</string>
+
+    <string-array name="subreddit">
+        <item>Corgi</item>
+        <item>AustralianShepherd</item>
+        <item>Otter</item>
+        <item>Cat</item>
+        <item>Food</item>
+    </string-array>
+
+    <string name="empty_list">There are no articles available right now</string>
 </resources>
