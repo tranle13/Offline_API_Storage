@@ -13,14 +13,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ListAdapter extends BaseAdapter {
 
 	// Member variables
 	private static final int BASE_ID = 0x00001;
-	private ArrayList<Article> articles;
-	private Context aContext;
+	private final ArrayList<Article> articles;
+	private final Context aContext;
 
 	// Constructor
 	public ListAdapter(ArrayList<Article> articles, Context aContext) {
@@ -80,9 +79,9 @@ public class ListAdapter extends BaseAdapter {
 
 	// Create a class for recycle view pattern
 	static class ViewHolder {
-		TextView txt_Title;
-		TextView txt_Comments;
-		TextView txt_Author;
+		final TextView txt_Title;
+		final TextView txt_Comments;
+		final TextView txt_Author;
 
 		ViewHolder(View _layout) {
 			txt_Title = (TextView)_layout.findViewById(R.id.txt_ArticleTitle);

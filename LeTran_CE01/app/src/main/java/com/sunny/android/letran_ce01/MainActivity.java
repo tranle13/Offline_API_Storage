@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements ArticleTask.GetAr
 	}
 
 	// Function to handle actions when user taps on different selection in spinner
-	private AdapterView.OnItemSelectedListener spinnerTapped = new AdapterView.OnItemSelectedListener() {
+	private final AdapterView.OnItemSelectedListener spinnerTapped = new AdapterView.OnItemSelectedListener() {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			String subreddit = parent.getItemAtPosition(position).toString();
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ArticleTask.GetAr
 				keyToSave = subreddit;
 				String url = "https://www.reddit.com/r/" + subreddit + "/hot.json";
 
-				ArticleTask articleTask = new ArticleTask(MainActivity.this, MainActivity.this);
+				ArticleTask articleTask = new ArticleTask(MainActivity.this);
 				articleTask.execute(url);
 			} else {
 				Toast.makeText(MainActivity.this, R.string.toast_no_connection, Toast.LENGTH_SHORT).show();

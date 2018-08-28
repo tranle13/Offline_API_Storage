@@ -5,9 +5,7 @@
 
 package com.sunny.android.letran_ce01;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -20,28 +18,25 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-	public class ArticleTask extends AsyncTask<String, Void, ArrayList<Article>> {
+class ArticleTask extends AsyncTask<String, Void, ArrayList<Article>> {
 
 	// Member variables
-	private final Context tContext;
 	private final GetArticles tInterface;
-		private static final String TAG = "ArticleTask";
 
 	// Create interface to communicate with the MainThread
-	public interface GetArticles {
+	interface GetArticles {
 		void getArticles(ArrayList<Article> articles);
 	}
 
 	// Constructor
-	public ArticleTask(Context tContext, GetArticles tInterface) {
-		this.tContext = tContext;
+	ArticleTask(GetArticles tInterface) {
 		this.tInterface = tInterface;
 	}
 
 	// Code to parse JSON and create an ArrayList of Articles
 	@Override
 	protected ArrayList<Article> doInBackground(String... strings) {
-		URL url = null;
+		URL url;
 		HttpURLConnection connection = null;
 		InputStream stream = null;
 
@@ -49,7 +44,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 		// Open connection
 		try {
-			Log.i(TAG, "doInBackground: GET CONNECTION");
 			url = new URL(strings[0]);
 			connection = (HttpsURLConnection)url.openConnection();
 			connection.connect();
@@ -59,21 +53,20 @@ import javax.net.ssl.HttpsURLConnection;
 
 		// Open stream and close after done getting data
 		try {
-			Log.i(TAG, "doInBackground: GET INPUT STREAM");
 			stream = connection.getInputStream();
-			String result = IOUtils.toString(stream, "UTF-8");
 
-			JSONObject outerObj = new JSONObject(result);
-			JSONObject innerObj = outerObj.getJSONObject("data");
-			JSONArray array = innerObj.getJSONArray("children");
+			if (stream != null) {
+				String result = IOUtils.toString(stream, "UTF-8");
 
-			Log.i(TAG, "doInBackground: "+outerObj+" "+innerObj+" "+array.length());
+				JSONObject outerObj = new JSONObject(result);
+				JSONObject innerObj = outerObj.getJSONObject("data");
+				JSONArray array = innerObj.getJSONArray("children");
 
-			for (int i = 0; i < array.length(); i++) {
-				Log.i(TAG, "doInBackground: INSIDE LOOP");
-				JSONObject obj = array.getJSONObject(i);
-				JSONObject data = obj.getJSONObject("data");
-				articles.add(new Article(data.getString("title"), data.getString("author"), data.getInt("num_comments")));
+				for (int i = 0; i < array.length(); i++) {
+					JSONObject obj = array.getJSONObject(i);
+					JSONObject data = obj.getJSONObject("data");
+					articles.add(new Article(data.getString("title"), data.getString("author"), data.getInt("num_comments")));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

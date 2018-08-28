@@ -10,9 +10,9 @@ import java.io.Serializable;
 public class Article implements Serializable {
 
 	// Member variables
-	private String title;
-	private String author;
-	private int numOfComments;
+	private final String title;
+	private final String author;
+	private final int numOfComments;
 
 	// Constructor
 	public Article(String title, String author, int numOfComments) {
